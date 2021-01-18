@@ -35,6 +35,7 @@
 #include "../regd.h"
 #include "../dfs_pattern_detector.h"
 #include "spectral.h"
+#include "csi.h"
 #include "thermal.h"
 #include "wow.h"
 #include "swap.h"
@@ -571,6 +572,7 @@ struct ath10k_vif {
 	bool is_started;
 	bool is_up;
 	bool spectral_enabled;
+	bool csi_enabled;
 	bool ps;
 	u32 aid;
 	u8 bssid[ETH_ALEN];
@@ -1378,6 +1380,15 @@ struct ath10k {
 		enum ath10k_spectral_mode mode;
 		struct ath10k_spec_scan config;
 	} spectral;
+
+	struct {
+		/* relay(fs) channel for csi */
+		struct rchan *rfs_chan_csi;
+
+		/* csi_mode is protected by conf_mutex */
+		enum ath10k_csi_mode mode;
+	} csi;
+
 #endif
 	u32 wmi_get_temp_count;
 
