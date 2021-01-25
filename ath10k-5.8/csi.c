@@ -21,11 +21,11 @@ static void send_csi_sample(struct ath10k *ar,
 	relay_write(ar->csi.rfs_chan_csi, csi_sample_tlv, length);
 }
 
-int ath10k_csi_process(struct ath10k *ar, u8 *buf, u16 length)
+int ath10k_csi_process(struct ath10k *ar, u8 *ibuf, u16 ilen)
 {
 	int ret = 0;
-	u8 *ibuf;
-	u16 ilen;
+	//u8 *ibuf;
+	//u16 ilen;
 	struct csi_sample_ath10k *csi_sample;
 	u8 mbuf[sizeof(*csi_sample) + CSI_ATH10K_MAX_SIZE];
 
@@ -33,8 +33,8 @@ int ath10k_csi_process(struct ath10k *ar, u8 *buf, u16 length)
 	//u8 csi_data[4096];
 	//u16 csi_data_len;
 
-	ibuf = ar->csi_data;
-	ilen = ar->csi_data_len;
+	//ibuf = ar->csi_data;
+	//ilen = ar->csi_data_len;
 
 	if (ilen < 64 || ilen > CSI_ATH10K_MAX_SIZE)
 	{
