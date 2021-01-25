@@ -3084,7 +3084,7 @@ printme:
 	res = ath10k_csi_process(ar, ubuf, ulen);
 	if (res < 0) {
 		ath10k_dbg(ar, ATH10K_DBG_WMI, "failed to process CSI measurements: %d\n", res);
-		return;
+		return 0;
 	}
 
 	/* This is quite noisy, need a better way to get this to user-space. */
