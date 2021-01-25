@@ -91,7 +91,7 @@ static int ath10k_csi_config(struct ath10k *ar,
 	if (mode == CSI_ENABLED)
 	{
 		ar->eeprom_overrides.ct_csi = 1;
-		ar->csi.mode = CSI_ENABLE;
+		ar->csi.mode = CSI_ENABLED;
 		ath10k_warn(ar, "Enable CSI dump\n");
 	}
 
