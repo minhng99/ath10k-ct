@@ -12,8 +12,10 @@ static void send_csi_sample(struct ath10k *ar,
 {
 	int length;
 
-	if (!ar->csi.rfs_chan_csi)
+	if (!ar->csi.rfs_chan_csi) {
+		ath10k_warn(ar, "rfs_chan_csi failed\n");
 		return;
+	}
 
 	length = __be16_to_cpu(csi_sample_tlv->length) +
 		 sizeof(*csi_sample_tlv);
@@ -82,12 +84,14 @@ static int ath10k_csi_config(struct ath10k *ar,
 	if (mode == CSI_DISABLED)
 	{
 		ar->eeprom_overrides.ct_csi = 0;
+		ar->csi.mode = CSI_DISABLED;
 		ath10k_warn(ar, "Disable CSI dump\n");
 	}
 
 	if (mode == CSI_ENABLED)
 	{
 		ar->eeprom_overrides.ct_csi = 1;
+		ar->csi.mode = CSI_ENABLE;
 		ath10k_warn(ar, "Enable CSI dump\n");
 	}
 
