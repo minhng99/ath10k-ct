@@ -12,14 +12,11 @@ static void send_csi_sample(struct ath10k *ar,
 {
 	int length;
 
-	if (!ar->csi.rfs_chan_csi) {
-		ath10k_warn(ar, "rfs_chan_csi failed\n");
+	if (!ar->csi.rfs_chan_csi)
 		return;
-	}
 
 	length = __be16_to_cpu(csi_sample_tlv->length) +
 		 sizeof(*csi_sample_tlv);
-	ath10k_warn(ar, "relay_length=%d\n", length);
 
 	relay_write(ar->csi.rfs_chan_csi, csi_sample_tlv, length);
 }
@@ -84,8 +81,8 @@ static int ath10k_csi_config(struct ath10k *ar,
 
 	if (mode == CSI_DISABLED)
 	{
-		ar->eeprom_overrides.ct_csi = 0;
 		ar->csi.mode = CSI_DISABLED;
+		ar->eeprom_overrides.ct_csi = 0;
 		ath10k_warn(ar, "Disable CSI dump\n");
 	}
 
@@ -179,6 +176,9 @@ static struct dentry *create_buf_file_handler(const char *filename,
 
 	buf_file = debugfs_create_file(filename, mode, parent, buf,
 				       &relay_file_operations);
+	if (IS_ERR(buf_file))
+		return NULL;
+
 	*is_global = 1;
 	return buf_file;
 }
