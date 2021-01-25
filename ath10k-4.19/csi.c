@@ -19,6 +19,7 @@ static void send_csi_sample(struct ath10k *ar,
 
 	length = __be16_to_cpu(csi_sample_tlv->length) +
 		 sizeof(*csi_sample_tlv);
+	ath10k_warn(ar, "relay_length=%d\n", length);
 
 	relay_write(ar->csi.rfs_chan_csi, csi_sample_tlv, length);
 }
